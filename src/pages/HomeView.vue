@@ -4,8 +4,10 @@ import axios from 'axios'
 const episodes = ref([])
 const page = ref(1)
 const totalPages = ref(0)
+const episodeId = ref(0)
+const modal = ref(false)
 
-const handleGetEspsodios = async () => {
+const handleGetEspisodes = async () => {
   try {
     const response = await axios.get('https://rickandmortyapi.com/api/episode', {
       params: {
@@ -21,11 +23,16 @@ const handleGetEspsodios = async () => {
 
 function setPagination(newPage) {
   page.value = newPage
-  handleGetEspsodios()
+  handleGetEspisodes()
+}
+
+function handleModal(id) {
+  episodeId.value = id
+  modal.value = true
 }
 
 onMounted(() => {
-  handleGetEspsodios()
+  handleGetEspisodes()
 })
 </script>
 
@@ -39,6 +46,7 @@ onMounted(() => {
         :episode="episode.episode"
         :airDate="episode.air_date"
         :characters="episode.characters"
+        @click="handleModal(episode.id)"
       />
     </div>
     <div class="flex justify-center py-4">
@@ -54,5 +62,7 @@ onMounted(() => {
         </button>
       </div>
     </div>
+
+    <ModalEpisode :id="episodeId" v-model="modal" />
   </div>
 </template>
