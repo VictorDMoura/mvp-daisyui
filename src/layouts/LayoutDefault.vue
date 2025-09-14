@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="h-screen">
+    <NavBar />
     <RouterView />
   </div>
 </template>
