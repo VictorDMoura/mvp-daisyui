@@ -6,7 +6,7 @@
     <div class="avatar-group -space-x-6 p-4">
       <div v-for="character in charactersFilter" :key="character.id" class="avatar">
         <div class="w-12">
-          <img :src="getImage(character)" />
+          <img :src="getImage(character)" :alt="character" />
         </div>
       </div>
       <div v-if="charactersCount > 0" class="avatar avatar-placeholder">
@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+import axios from 'axios'
 const emit = defineEmits(['clickEpisode'])
 
 const props = defineProps({
